@@ -29,11 +29,9 @@ public class tela extends JFrame {
     private JButton mesa5;
     private JButton mesa6;
 
-    private JLabel pedidoTexto;
-   
     private JButton btnLogin;
     private JButton btnCancelar;
-    private JButton btnSair;
+    private JButton btnPedidosAbertos;
     
     private JButton addUva;
     private JLabel cinUva;
@@ -60,7 +58,6 @@ public class tela extends JFrame {
 
     float total=0;
 
-    int pedido=1;
     int numeroMesa=0;
         
     float valorGoiaba = (float) 4.5;
@@ -73,27 +70,28 @@ public class tela extends JFrame {
     int Laranja = 0;
     int Manga = 0;
     
-    public tela() {
+    public tela() throws IOException {
         super("Cielo Labs - Inovação");
         initialize();   
     }
  
-    private void initialize() {
-        setSize(1280, 730);
+    private void initialize() throws IOException {
+        
+        setSize(1366, 768);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(getPnlPrincipal());
         setLayout(null);  
         setResizable(false);
-        ImageIcon icone = new ImageIcon("cielo.png");
+        ImageIcon icone = new ImageIcon("imagens/cielo.png");
         setIconImage(icone.getImage());
     }
  
-    private JPanel getPnlPrincipal() {
+    private JPanel getPnlPrincipal() throws IOException {
         if (pnlPrincipal == null) {
-            
+
             pnlPrincipal = new JPanel();
-            
+
             pnlPrincipal.add(getQtdUva());
             pnlPrincipal.add(getQtdLaranja());
             pnlPrincipal.add(getQtdManga());
@@ -105,13 +103,12 @@ public class tela extends JFrame {
             pnlPrincipal.add(getLblCinzaGoiaba());
             
             pnlPrincipal.add(getLblMesa());
-            pnlPrincipal.add(getLblPedido());
             pnlPrincipal.add(getLblValor());
             pnlPrincipal.add(getLblValorTotalImagem());
 
             pnlPrincipal.add(getBtnCompra());
             pnlPrincipal.add(getBtnLimparPedido());
-            pnlPrincipal.add(getBtnSair());
+            pnlPrincipal.add(getBtnPedidosAbertos());
             
             pnlPrincipal.add(getBtnAddUva());
             pnlPrincipal.add(getBtnRemUva());
@@ -136,28 +133,26 @@ public class tela extends JFrame {
     
     private JLabel getLblValorTotalImagem(){
             if(valorTotalImagem == null){
-                valorTotalImagem = new JLabel(new ImageIcon("valor total.png"));
-                valorTotalImagem.setBounds(370, 525,400,200);
+                valorTotalImagem = new JLabel(new ImageIcon("imagens/valor total.png"));
+                valorTotalImagem.setBounds(425, 550,400,200);
         }
         return valorTotalImagem;
     }
-    
     private JLabel getQtdUva(){
         if (qtdUva == null) {        
             qtdUva = new JLabel(String.valueOf(Uva));
             qtdUva.setForeground(new Color(105,17,176));
             qtdUva.setFont(new Font("Exo",Font.ITALIC + Font.BOLD, 35));
-            qtdUva.setBounds(145, 473,60,55);
+            qtdUva.setBounds(160, 498,60,55);
         }
         return qtdUva;
     }
-    
     private JLabel getQtdLaranja(){
         if (qtdLaranja == null) {
             qtdLaranja = new JLabel(String.valueOf(Laranja));
             qtdLaranja.setForeground(new Color(105,17,176));
             qtdLaranja.setFont(new Font("Exo",Font.ITALIC + Font.BOLD, 35));
-            qtdLaranja.setBounds(460, 473,60,55);
+            qtdLaranja.setBounds(485, 498,60,55);
         }
         return qtdLaranja;
     }
@@ -166,7 +161,7 @@ public class tela extends JFrame {
             qtdManga = new JLabel(String.valueOf(Manga));
             qtdManga.setForeground(new Color(105,17,176));
             qtdManga.setFont(new Font("Exo",Font.ITALIC + Font.BOLD, 35));
-            qtdManga.setBounds(755, 473,60,55);
+            qtdManga.setBounds(805, 498,60,55);
         }
         return qtdManga;
     }
@@ -175,11 +170,10 @@ public class tela extends JFrame {
             qtdGoiaba = new JLabel(String.valueOf(Goiaba));
             qtdGoiaba.setForeground(new Color(105,17,176));
             qtdGoiaba.setFont(new Font("Exo",Font.ITALIC + Font.BOLD, 35));
-            qtdGoiaba.setBounds(1070, 473,60,55);
+            qtdGoiaba.setBounds(1140, 498,60,55);
         }
         return qtdGoiaba;
     }
-    
     private JLabel getLblMesa() {
         if (mesaTexto == null) {
             if(numeroMesa==0)
@@ -188,68 +182,61 @@ public class tela extends JFrame {
                 mesaTexto = new JLabel("Mesa " + numeroMesa );
                         
             mesaTexto.setFont(new Font("Exo",Font.ITALIC + Font.BOLD, 25));
-            mesaTexto.setBounds(20, 555, 600, 20);
+            mesaTexto.setBounds(20, 590, 600, 20);
         }
         return mesaTexto;
-    }
-    
+    }  
     private JLabel getLblValor() {
         if (valorTotal == null) {
             valorTotal = new JLabel(); 
             valorTotal.setText(String.format("R$%.2f",total));
             valorTotal.setForeground(new Color(255,255,255));
             valorTotal.setFont(new Font("Exo",Font.ITALIC + Font.BOLD, 45));
-            valorTotal.setBounds(435, 605, 700, 100);
+            valorTotal.setBounds(485, 630, 700, 100);
         }
         return valorTotal;
-    }
-     
-    private JLabel getLblPedido() {
-        if (pedidoTexto == null) {
-            pedidoTexto = new JLabel("Pedido " + String.valueOf(pedido));
-            pedidoTexto.setForeground(new Color(255,255,255));
-            pedidoTexto.setFont(new Font("Exo",Font.ITALIC + Font.BOLD, 30));
-            pedidoTexto.setBounds(1150, 20, 600, 20);
-        }
-        return pedidoTexto;
-    }
-    
+    }   
     private JButton getBtnCompra() {
         if (btnLogin == null) {
             
-            ImageIcon ImgEnviar = new ImageIcon("enviarr.png");
+            ImageIcon ImgEnviar = new ImageIcon("imagens/enviarr.png");
                           
             btnLogin = new JButton(ImgEnviar);
-            btnLogin.setBounds(750, 528,135,175);
+            btnLogin.setBounds(875, 565,135,175);
             btnLogin.setContentAreaFilled(false);
             btnLogin.setBorderPainted(false);
             btnLogin.addActionListener((ActionEvent arg0) -> {
                 if(numeroMesa!=0){
                     if(total!=0 && 0<=Goiaba && 0<=Uva && 0<=Laranja && 0<=Manga){
                         OKHTTP conexao = new OKHTTP();
+                        int mesaOcupado = 0;
+                        
                         try {
-                            conexao.post(String.valueOf(numeroMesa),total,pedido,Goiaba,Uva,Laranja,Manga,valorGoiaba,valorUva,valorLaranja,valorManga);
+                            mesaOcupado = conexao.post(String.valueOf(numeroMesa),total,Goiaba,Uva,Laranja,Manga,valorGoiaba,valorUva,valorLaranja,valorManga);
                         } catch (Exception ex) {
                             Logger.getLogger(tela.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        JOptionPane.showMessageDialog(tela.this,"Pedido "+ (pedido) +" enviado!\nMesa: " + numeroMesa + "\n" + String.format("Total: R$%.2f",total));
-                        pedido++;
-                        Uva=0;
-                        Goiaba=0;
-                        Laranja=0;
-                        Manga=0;
-                        qtdGoiaba.setText(String.valueOf(Goiaba));
-                        qtdUva.setText(String.valueOf(Uva));
-                        qtdLaranja.setText(String.valueOf(Laranja));
-                        qtdManga.setText(String.valueOf(Manga));
-                        pedidoTexto.setText("Pedido " + String.valueOf(pedido));
-                        numeroMesa=0;
-                        mesaTexto.setText("Mesa ");
-                        total=0;
-                        valorTotal.setText(String.format("R$%.2f",total));
+                        if(mesaOcupado==0){
+                            JOptionPane.showMessageDialog(tela.this,"Pedido enviado!\nMesa: " + numeroMesa + "\n" + String.format("Total: R$%.2f",total));
+                            Uva=0;
+                            Goiaba=0;
+                            Laranja=0;
+                            Manga=0;
+                            qtdGoiaba.setText(String.valueOf(Goiaba));
+                            qtdUva.setText(String.valueOf(Uva));
+                            qtdLaranja.setText(String.valueOf(Laranja));
+                            qtdManga.setText(String.valueOf(Manga));
+                            numeroMesa=0;
+                            mesaTexto.setText("Mesa ");
+                            total=0;
+                            valorTotal.setText(String.format("R$%.2f",total));
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(tela.this,"Mesa Ocupada!");
+                        }
                     }
                     else{
-                        JOptionPane.showMessageDialog(tela.this,"Por favor, preencha valores validos");
+                        JOptionPane.showMessageDialog(tela.this,"Por favor, preencha valores validos!");
                     }
                 }
                 else{
@@ -259,13 +246,12 @@ public class tela extends JFrame {
         }
         return btnLogin;
     }
- 
     private JButton getBtnLimparPedido() {
         if (btnCancelar == null) {
             
-            ImageIcon ImgCancelar = new ImageIcon("Limpar Pedido.png");
+            ImageIcon ImgCancelar = new ImageIcon("imagens/Limpar Pedido.png");
             btnCancelar = new JButton(ImgCancelar);
-            btnCancelar.setBounds(890, 528,130,175);
+            btnCancelar.setBounds(1015, 565,130,175);
             btnCancelar.setBorderPainted(false);
             btnCancelar.setContentAreaFilled(false);
             btnCancelar.addActionListener((ActionEvent arg0) -> {
@@ -285,29 +271,31 @@ public class tela extends JFrame {
         }
         return btnCancelar;
     }
- 
-    private JButton getBtnSair() {
-        if (btnSair == null) {
-            ImageIcon ImgSair = new ImageIcon("sair.png");
-            btnSair = new JButton(ImgSair);
-            btnSair.setBounds(1025, 528,135,175);
-            btnSair.setContentAreaFilled(false);
-            btnSair.setBorderPainted(false);
-            btnSair.addActionListener((ActionEvent arg0) -> {
-                dispose();
+    private JButton getBtnPedidosAbertos() {
+        if (btnPedidosAbertos == null) {
+            ImageIcon ImgSair = new ImageIcon("imagens/pedidosabertos.png");
+            btnPedidosAbertos = new JButton(ImgSair);
+            btnPedidosAbertos.setBounds(1155, 565,135,175);
+            btnPedidosAbertos.setContentAreaFilled(false);
+            btnPedidosAbertos.setBorderPainted(false);
+            btnPedidosAbertos.addActionListener((ActionEvent arg0) -> {
+                try {
+                    new tela2().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(tela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             });
         }
-        return btnSair;
+        return btnPedidosAbertos;
     }
-    
-        private JButton getBtnAddUva() {
+    private JButton getBtnAddUva() {
         if (addUva == null) {
-            ImageIcon water = new ImageIcon("botaoMais.png");
+            ImageIcon water = new ImageIcon("imagens/botaoMais.png");
             addUva = new JButton(water);
             addUva.setBorderPainted(false);
             addUva.setContentAreaFilled(false);
             addUva.setBorder(new RoundedBorder(10));
-            addUva.setBounds(160, 470,140,55);
+            addUva.setBounds(175, 500,140,55);
             addUva.addActionListener((ActionEvent arg0) -> {
                 if(Uva!=99){
                     Uva++;
@@ -319,15 +307,14 @@ public class tela extends JFrame {
         }
         return addUva;
     }
-    
     private JButton getBtnRemUva() {
         if (remUva == null) {
-            ImageIcon water = new ImageIcon("botaoMenos.png");
+            ImageIcon water = new ImageIcon("imagens/botaoMenos.png");
             remUva = new JButton(water);
             remUva.setBorderPainted(false);
             remUva.setContentAreaFilled(false);
             remUva.setBorder(new RoundedBorder(10));
-            remUva.setBounds(20, 470,140,55);
+            remUva.setBounds(35, 500,140,55);
             remUva.addActionListener((ActionEvent arg0) -> {
                 if(Uva!=0){
                     Uva--;
@@ -339,22 +326,20 @@ public class tela extends JFrame {
         }
         return remUva;
     }
-    
     private JLabel getLblCinzaUva(){
             if(cinUva == null){
-            cinUva = new JLabel(new ImageIcon("cinza.png"));
-            cinUva.setBounds(120, 459,80,80);
+            cinUva = new JLabel(new ImageIcon("imagens/cinza.png"));
+            cinUva.setBounds(135, 489,80,80);
         }
         return cinUva;
     }
- 
     private JButton getBtnAddLaranja() {
         if (addLar == null) {
-            ImageIcon water = new ImageIcon("botaoMais.png");
+            ImageIcon water = new ImageIcon("imagens/botaoMais.png");
             addLar = new JButton(water);
             addLar.setBorderPainted(false);
             addLar.setContentAreaFilled(false);
-            addLar.setBounds(470, 470,140,55);
+            addLar.setBounds(495, 500,140,55);
             addLar.addActionListener((ActionEvent arg0) -> {
                 if(Laranja!=99){
                     Laranja++;
@@ -366,14 +351,13 @@ public class tela extends JFrame {
         }
         return addLar;
     }
-    
     private JButton getBtnRemLaranja() {
         if (remLar == null) {
-            ImageIcon water = new ImageIcon("botaoMenos.png");
+            ImageIcon water = new ImageIcon("imagens/botaoMenos.png");
             remLar = new JButton(water);
             remLar.setBorderPainted(false);
             remLar.setContentAreaFilled(false);
-            remLar.setBounds(330, 470,140,55);
+            remLar.setBounds(355, 500,140,55);
             remLar.addActionListener((ActionEvent arg0) -> {
                 if(Laranja!=0){
                     Laranja--;
@@ -385,22 +369,20 @@ public class tela extends JFrame {
         }
         return remLar;
     }
-    
     private JLabel getLblCinzaLaranja(){
             if(cinLar == null){
-            cinLar = new JLabel(new ImageIcon("cinza.png"));
-            cinLar.setBounds(434, 459,80,80);
+            cinLar = new JLabel(new ImageIcon("imagens/cinza.png"));
+            cinLar.setBounds(459, 489,80,80);
         }
         return cinLar;
     }
-    
-        private JButton getBtnAddManga() {
+    private JButton getBtnAddManga() {
         if (addMan == null) {
-            ImageIcon water = new ImageIcon("botaoMais.png");
+            ImageIcon water = new ImageIcon("imagens/botaoMais.png");
             addMan = new JButton(water);
             addMan.setBorderPainted(false);
             addMan.setContentAreaFilled(false);
-            addMan.setBounds(770, 470,140,55);
+            addMan.setBounds(820, 500,140,55);
             addMan.addActionListener((ActionEvent arg0) -> {
                 if(Manga!=99){
                     Manga++;
@@ -412,15 +394,14 @@ public class tela extends JFrame {
         }
         return addMan;
     }
-    
     private JButton getBtnRemManga() {
         if (remMan == null) {
-             ImageIcon water = new ImageIcon("botaoMenos.png");
+             ImageIcon water = new ImageIcon("imagens/botaoMenos.png");
             
             remMan = new JButton(water);
             remMan.setBorderPainted(false);
             remMan.setContentAreaFilled(false);
-            remMan.setBounds(630, 470,140,55);
+            remMan.setBounds(680, 500,140,55);
             remMan.addActionListener((ActionEvent arg0) -> {
                 if(Manga!=0){
                     Manga--;
@@ -432,22 +413,20 @@ public class tela extends JFrame {
         }
         return remMan;
     }
-    
-        private JLabel getLblCinzaManga(){
+    private JLabel getLblCinzaManga(){
             if(cinMan == null){
-            cinMan = new JLabel(new ImageIcon("cinza.png"));
-            cinMan.setBounds(730, 459,80,80);
+            cinMan = new JLabel(new ImageIcon("imagens/cinza.png"));
+            cinMan.setBounds(780, 489,80,80);
         }
         return cinMan;
     }
-    
     private JButton getBtnAddGoiaba() {
         if (addGoi == null) {
-                      ImageIcon water = new ImageIcon("botaoMais.png");
+                      ImageIcon water = new ImageIcon("imagens/botaoMais.png");
             addGoi = new JButton(water);
             addGoi.setBorderPainted(false);
             addGoi.setContentAreaFilled(false);
-            addGoi.setBounds(1085, 470,140,55);
+            addGoi.setBounds(1155, 500,140,55);
             addGoi.addActionListener((ActionEvent arg0) -> {
                 if(Goiaba!=99){
                     Goiaba++;
@@ -458,16 +437,15 @@ public class tela extends JFrame {
             });
         }
         return addGoi;
-    }
-    
+    }  
     private JButton getBtnRemGoiaba() {
         if (remGoi == null) {
-             ImageIcon water = new ImageIcon("botaoMenos.png");
+             ImageIcon water = new ImageIcon("imagens/botaoMenos.png");
      
             remGoi = new JButton(water);
             remGoi.setBorderPainted(false);
             remGoi.setContentAreaFilled(false);
-            remGoi.setBounds(945, 470,140,55);
+            remGoi.setBounds(1005, 500,140,55);
             remGoi.addActionListener((ActionEvent arg0) -> {
                 if(Goiaba!=0){
                     Goiaba--;
@@ -479,30 +457,27 @@ public class tela extends JFrame {
         }
         return remGoi;
     }
-
     private JLabel getLblCinzaGoiaba(){
             if(cinGoi == null){
-            cinGoi = new JLabel(new ImageIcon("cinza.png"));
-            cinGoi.setBounds(1045, 459,80,80);
+            cinGoi = new JLabel(new ImageIcon("imagens/cinza.png"));
+            cinGoi.setBounds(1115, 489,80,80);
         }
         return cinGoi;
     }
-            
-     private JLabel getImagemTopoMeio(){
+    private JLabel getImagemTopoMeio(){
         if(ImagemTopoMeio == null){
-            ImagemTopoMeio = new JLabel(new ImageIcon("topoMeio.png"));
-            ImagemTopoMeio.setBounds(0, 0, 1280, 720);
+            ImagemTopoMeio = new JLabel(new ImageIcon("imagens/topoMeio.png"));
+            ImagemTopoMeio.setBounds(0, 0, 1366, 768);
         }
         return ImagemTopoMeio;
     }
-     
     private JButton getBtnMesa1() {
         if(mesa1 == null) {
-            ImageIcon imgMesa = new ImageIcon("MESA01.png");
+            ImageIcon imgMesa = new ImageIcon("imagens/MESA01.png");
             mesa1 = new JButton(imgMesa);
             mesa1.setBorderPainted(false);
             mesa1.setContentAreaFilled(false);
-            mesa1.setBounds(20, 590,101,41);
+            mesa1.setBounds(20, 625,101,41);
             mesa1.addActionListener((ActionEvent arg0) -> {
                 numeroMesa=1;
                 mesaTexto.setText("Mesa " + String.valueOf(numeroMesa));
@@ -512,11 +487,11 @@ public class tela extends JFrame {
     }
     private JButton getBtnMesa2() {
         if(mesa2 == null) {
-            ImageIcon imgMesa = new ImageIcon("MESA02.png");
+            ImageIcon imgMesa = new ImageIcon("imagens/MESA02.png");
             mesa2 = new JButton(imgMesa);
             mesa2.setBorderPainted(false);
             mesa2.setContentAreaFilled(false);
-            mesa2.setBounds(155, 590,101,41);
+            mesa2.setBounds(155, 625,101,41);
             mesa2.addActionListener((ActionEvent arg0) -> {
                 numeroMesa=2;
                 mesaTexto.setText("Mesa " + String.valueOf(numeroMesa));
@@ -526,11 +501,11 @@ public class tela extends JFrame {
     }
     private JButton getBtnMesa3() {
         if(mesa3 == null) {
-            ImageIcon imgMesa = new ImageIcon("MESA03.png");
+            ImageIcon imgMesa = new ImageIcon("imagens/MESA03.png");
             mesa3 = new JButton(imgMesa);
             mesa3.setBorderPainted(false);
             mesa3.setContentAreaFilled(false);
-            mesa3.setBounds(290, 590,101,41);
+            mesa3.setBounds(290, 625,101,41);
             mesa3.addActionListener((ActionEvent arg0) -> {
                 numeroMesa=3;
                 mesaTexto.setText("Mesa " + String.valueOf(numeroMesa));
@@ -540,11 +515,11 @@ public class tela extends JFrame {
     }
     private JButton getBtnMesa4() {
         if(mesa4 == null) {
-            ImageIcon imgMesa = new ImageIcon("MESA04.png");
+            ImageIcon imgMesa = new ImageIcon("imagens/MESA04.png");
             mesa4 = new JButton(imgMesa);
             mesa4.setBorderPainted(false);
             mesa4.setContentAreaFilled(false);
-            mesa4.setBounds(20, 645,101,41);
+            mesa4.setBounds(20, 680,101,41);
             mesa4.addActionListener((ActionEvent arg0) -> {
                 numeroMesa=4;
                 mesaTexto.setText("Mesa " + String.valueOf(numeroMesa));
@@ -554,11 +529,11 @@ public class tela extends JFrame {
     }
     private JButton getBtnMesa5() {
         if(mesa5 == null) {
-            ImageIcon imgMesa = new ImageIcon("MESA05.png");
+            ImageIcon imgMesa = new ImageIcon("imagens/MESA05.png");
             mesa5 = new JButton(imgMesa);
             mesa5.setBorderPainted(false);
             mesa5.setContentAreaFilled(false);
-            mesa5.setBounds(155, 645,101,41);
+            mesa5.setBounds(155, 680,101,41);
             mesa5.addActionListener((ActionEvent arg0) -> {
                 numeroMesa=5;
                 mesaTexto.setText("Mesa " + String.valueOf(numeroMesa));
@@ -568,11 +543,11 @@ public class tela extends JFrame {
     }
     private JButton getBtnMesa6() {
         if(mesa6 == null) {
-            ImageIcon imgMesa = new ImageIcon("MESA06.png");
+            ImageIcon imgMesa = new ImageIcon("imagens/MESA06.png");
             mesa6 = new JButton(imgMesa);
             mesa6.setBorderPainted(false);
             mesa6.setContentAreaFilled(false);
-            mesa6.setBounds(290, 645,101,41);
+            mesa6.setBounds(290, 680,101,41);
             mesa6.addActionListener((ActionEvent arg0) -> {
                 numeroMesa=6;
                 mesaTexto.setText("Mesa " + String.valueOf(numeroMesa));
